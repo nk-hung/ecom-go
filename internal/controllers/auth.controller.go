@@ -1,3 +1,3 @@
-package controller
+package controllers
 
 func Signup() {}

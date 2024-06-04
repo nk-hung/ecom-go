@@ -1,4 +1,4 @@
 package middleware
 
-func Authentication() {
+func Authenticate() {
 }

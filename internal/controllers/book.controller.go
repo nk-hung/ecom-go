@@ -1,4 +1,4 @@
-package controller
+package controllers
 
 type CreateBook struct{}
 
