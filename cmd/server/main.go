@@ -9,22 +9,7 @@ import (
 	"github.com/nk-hung/ecom-go/internal/routes"
 )
 
-func main() {
-	// cfg := mysql.Config{
-	// 	User:                 config.Envs.DBUser,
-	// 	Passwd:               config.Envs.DBPassword,
-	// 	Addr:                 config.Envs.DBAddress,
-	// 	DBName:               config.Envs.DBName,
-	// 	Net:                  "tcp",
-	// 	AllowNativePasswords: true,
-	// 	ParseTime:            true,
-	// }
-	//
-	// db, err := global.NewMySQLStorage(cfg)
-	// initStorage(db)
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
+func main1() {
 	port := os.Getenv("PORT")
 
 	if port == "" {
@@ -46,16 +31,6 @@ func main() {
 	})
 
 	router.Run(":" + port)
-	// r := mux.NewRouter()
-	// r.Use(gin.Logger())
-	//
-	// /* Routes */
-	// routes.AuthRoute(r)
-	// routes.UserRoute(r)
-	// routes.RegisterBookStoreRoutes(r)
-	//
-	// http.Handle("/", r)
-	// log.Fatal(http.ListenAndServe("localhost:8080", r))
 }
 
 func initStorage(db *sql.DB) {

@@ -67,10 +67,6 @@ func Signup() gin.HandlerFunc {
 		user.UpdatedAt, _ = time.Parse(time.RFC3339, time.Now().Format(time.RFC3339))
 		user.ID = primitive.NewObjectID()
 		user.UserId = user.ID.Hex()
-		accessToken, refreshToken, _ := helper.GenerateKeyPairTokens(*user.Email, *user.FirstName, *user.LastName)
-		user.Token = &accessToken
-		user.RefreshToken = &refreshToken
-
 		resultInsert, resultErr := userCollection.InsertOne(ctx, user)
 		if resultErr != nil {
 			msg := fmt.Sprintf("user item was not created")
@@ -78,8 +74,16 @@ func Signup() gin.HandlerFunc {
 			return
 		}
 		defer cancel()
+
+		// TODO: create publicKey, privateKey
+		// Create publicKey, privateKey
+		message := []byte("message to be signed")
+
+		accessToken, refreshToken, _ := helper.GenerateKeyPairTokens(*user.Email, *user.FirstName, *user.LastName, user.UserId)
+		// user.Token = &accessToken
+		// user.RefreshToken = &refreshToken
+
 		c.JSON(http.StatusOK, resultInsert)
-		// TODO: create key pair token
 	}
 }
 
