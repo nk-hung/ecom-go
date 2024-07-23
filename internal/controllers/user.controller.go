@@ -51,8 +51,6 @@ func Signup() gin.HandlerFunc {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "error occured while checking for the email"})
 		}
 
-		count, err = userCollection.CountDocuments(ctx, bson.M{"phone": user.Phone})
-
 		defer cancel()
 		if err != nil {
 			log.Panic(err)
@@ -77,9 +75,12 @@ func Signup() gin.HandlerFunc {
 
 		// TODO: create publicKey, privateKey
 		// Create publicKey, privateKey
-		message := []byte("message to be signed")
+		privateKey, publicKey, err := helper.GenerateKeyPairs(4096)
+		if err != nil {
+			log.Panic(err)
+		}
 
-		accessToken, refreshToken, _ := helper.GenerateKeyPairTokens(*user.Email, *user.FirstName, *user.LastName, user.UserId)
+		accessToken, refreshToken, _ := helper.GenerateKeyPairTokens(*user.Email, user.ID, publicKey, privateKey)
 		// user.Token = &accessToken
 		// user.RefreshToken = &refreshToken
 

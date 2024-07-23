@@ -7,13 +7,12 @@ import (
 )
 
 type User struct {
-	FirstName *string `json:"first_name" validate:"required, min=2 max=100"`
-	LastName  *string `json:"last_name" validate:"required, min=, max=100"`
-	Password  *string `json:"password" validate:"required, min=6"`
-	Email     *string `json:"email" validate:"email,required"`
-	Phone     *string `json:"phone" validate:"required"`
-	// Token        *string            `json:"token"`
-	UserType *string `json:"user_type" validate:"required, eq=ADMIN|eq=USER"`
+	Name     *string   `json:"name" validate:"required, min=2 max=100"`
+	Email    *string   `json:"email" validate:"email,required"`
+	Password *string   `json:"password" validate:"required, min=6"`
+	Status   *string   `json:"status" validate:"required, eq=ACTIVE|eq=INACTIVE"`
+	Verify   *string   `json:"verify" validate:"required, default=false"`
+	Roles    *[]string `json:"roles" validate:"required, eq=ADMIN|eq=USER|eq=SHOP"`
 	// RefreshToken *string            `json:"refresh_token"`
 	CreatedAt time.Time          `json:"created_at"`
 	UpdatedAt time.Time          `json:"updated_at"`
